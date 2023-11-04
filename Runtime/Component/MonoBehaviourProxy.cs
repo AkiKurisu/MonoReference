@@ -11,7 +11,7 @@ namespace Kurisu.MonoReference
         private MonoBehaviorReference monoBehaviorReference;
         [SerializeField, HideInInspector]
         private MonoBehaviourSerializeData serializeData;
-        public ReferencedMonoBehaviour ReferencedMonoBehaviour { get; internal set; }
+        public ReferencedMonoBehaviour ReferencedMonoBehaviour { get; private set; }
         private void Awake()
         {
             Deserialize();
@@ -40,7 +40,9 @@ namespace Kurisu.MonoReference
         }
         public void Serialize()
         {
+#if UNITY_EDITOR_WIN
             serializeData = new MonoBehaviourSerializeData(ReferencedMonoBehaviour);
+#endif
         }
     }
 }

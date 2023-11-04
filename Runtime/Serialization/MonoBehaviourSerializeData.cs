@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UObject = UnityEngine.Object;
 namespace Kurisu.MonoReference
@@ -14,6 +16,7 @@ namespace Kurisu.MonoReference
         private SerializeDictionary<int, UObject> objectSerializeMap;
         [SerializeField]
         private string serializeJsonData;
+#if UNITY_EDITOR
         public MonoBehaviourSerializeData(ReferencedMonoBehaviour referencedMonoBehaviour)
         {
             var objectMap = new Dictionary<int, UObject>();
@@ -28,8 +31,12 @@ namespace Kurisu.MonoReference
                     objectMap.Add((int)prop.Value, UObject);
                 }
             }
+
             objectSerializeMap = new(objectMap);
         }
+#else
+        public MonoBehaviourSerializeData(){}
+#endif
         public void Deserialize(ReferencedMonoBehaviour referencedMonoBehaviour)
         {
             JObject obj = JObject.Parse(serializeJsonData);
@@ -44,5 +51,6 @@ namespace Kurisu.MonoReference
             }
             JsonUtility.FromJsonOverwrite(obj.ToString(), referencedMonoBehaviour);
         }
+
     }
 }
