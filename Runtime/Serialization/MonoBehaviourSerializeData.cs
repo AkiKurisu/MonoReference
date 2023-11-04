@@ -39,6 +39,7 @@ namespace Kurisu.MonoReference
 #endif
         public void Deserialize(ReferencedMonoBehaviour referencedMonoBehaviour)
         {
+            if (string.IsNullOrEmpty(serializeJsonData)) return;
             JObject obj = JObject.Parse(serializeJsonData);
             var objectMap = objectSerializeMap.ToDictionary();
             foreach (JProperty prop in obj.Descendants().OfType<JProperty>().ToList())

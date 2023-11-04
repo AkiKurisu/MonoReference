@@ -68,7 +68,6 @@ namespace Kurisu.MonoReference.Editor
             {
                 // Deserialize fail when type can not be found
                 if (!Proxy.Deserialize()) return;
-                Proxy.ReferencedMonoBehaviour.hideFlags = HideFlags.HideInInspector | HideFlags.DontSave;
             }
             referenceObject = new SerializedObject(Proxy.ReferencedMonoBehaviour);
         }

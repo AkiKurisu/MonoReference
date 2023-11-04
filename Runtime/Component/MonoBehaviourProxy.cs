@@ -35,6 +35,7 @@ namespace Kurisu.MonoReference
                 return false;
             }
             ReferencedMonoBehaviour = (ReferencedMonoBehaviour)gameObject.AddComponent(GetBehaviourType());
+            ReferencedMonoBehaviour.hideFlags = HideFlags.HideInInspector | HideFlags.DontSave;
             serializeData.Deserialize(ReferencedMonoBehaviour);
             return true;
         }
